@@ -7,7 +7,7 @@ export const SITE = {
   /** Fichier à placer dans public/audio/ */
   audio: {
     source: "/audio/track.mp3",
-    titre: "Ambiance",
+    titre: "jsp frère",
     artiste: "TombeauLatent",
   },
 };

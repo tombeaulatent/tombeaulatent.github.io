@@ -35,7 +35,7 @@
   height: var(--outillage-hauteur-barre);
   padding: 0 0.9rem;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--glass-border);
+  border: 3px outset var(--glass-border);
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
@@ -75,7 +75,7 @@
   color: var(--color-ink);
 }
 
-/* Boutons du lecteur (pas d’effet magnification) */
+/* Boutons du lecteur */
 .outillage-btn {
   width: 2.45rem;
   height: 2.45rem;
@@ -111,7 +111,7 @@
   width: min(20rem, calc(100vw - 1.5rem));
   padding: 0.85rem 0.95rem;
   border-radius: 1.15rem;
-  border: 1px solid var(--glass-border);
+  border: 1px dashed var(--glass-border);
   background: var(--glass-bg-strong);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.9);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.9);
@@ -139,8 +139,8 @@
 
 .outillage-player-title {
   font-family: var(--font-bloody);
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
   color: var(--color-ink);
 }
 

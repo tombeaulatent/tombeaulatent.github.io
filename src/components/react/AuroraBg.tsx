@@ -3,7 +3,7 @@ import { AuroraPattern } from "@asciitopia/core/patterns/aurora";
 
 const auroraMono = new AuroraPattern({
   palette: "mono",
-  speed: 0.1,
+  speed: 0.05,
   threshold: 0.28,
 });
 

@@ -38,7 +38,11 @@ const pageTitle = title === SITE.nom ? title : `${title} · ${SITE.nom}`;
   </head>
   <body>
     <div class="site-shell">
-      <SiteHeader client:load currentPath={currentPath} />
+      <SiteHeader
+        client:load
+        transition:persist="nav"
+        currentPath={currentPath}
+      />
       <main
         class="site-main"
         transition:animate={fade({ duration: "600ms" })}

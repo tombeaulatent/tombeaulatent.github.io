@@ -18,7 +18,7 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
 
   return (
     <>
-      <header className="nav-pill-wrap" data-astro-transition-persist="nav">
+      <header className="nav-pill-wrap">
         <nav
           className={`nav-glass${ouvert ? " is-open" : ""}`}
           aria-label="Principale"
@@ -30,9 +30,10 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
               <li key={lien.href}>
                 <a
                   className={`nav-desktop-link${
-                    estCourant(lien.href) ? " is-current" : ""
+                    estCourant(lien.href) ? " active" : ""
                   }`}
                   href={lien.href}
+                  aria-current={estCourant(lien.href) ? "page" : undefined}
                 >
                   {lien.label}
                 </a>
@@ -76,9 +77,10 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
                 <a
                   ref={definirRefLien(i)}
                   className={`menu-link${
-                    estCourant(lien.href) ? " is-current" : ""
+                    estCourant(lien.href) ? " active" : ""
                   }`}
                   href={lien.href}
+                  aria-current={estCourant(lien.href) ? "page" : undefined}
                   onClick={fermerMenu}
                 >
                   <span className="idx">0{i + 1}</span>

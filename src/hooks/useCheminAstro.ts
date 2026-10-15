@@ -16,10 +16,15 @@ function estCheminCourant(cheminActuel: string, href: string) {
 }
 
 /**
- * Suit le pathname avec les view transitions Astro.
+ * Suit le pathname avec les view transitions Astro
+ * (prop initiale + sync client, car le header est persisté entre les pages).
  */
 export function useCheminAstro(cheminInitial = "/") {
   const [chemin, setChemin] = useState(normaliserChemin(cheminInitial));
+
+  useEffect(() => {
+    setChemin(normaliserChemin(cheminInitial));
+  }, [cheminInitial]);
 
   useEffect(() => {
     const synchroniser = () =>
@@ -27,9 +32,11 @@ export function useCheminAstro(cheminInitial = "/") {
     synchroniser();
     document.addEventListener("astro:page-load", synchroniser);
     document.addEventListener("astro:after-swap", synchroniser);
+    window.addEventListener("popstate", synchroniser);
     return () => {
       document.removeEventListener("astro:page-load", synchroniser);
       document.removeEventListener("astro:after-swap", synchroniser);
+      window.removeEventListener("popstate", synchroniser);
     };
   }, []);
 
