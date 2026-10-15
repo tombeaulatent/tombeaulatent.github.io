@@ -37,13 +37,12 @@ const pageTitle = title === SITE.nom ? title : `${title} · ${SITE.nom}`;
     <ClientRouter />
   </head>
   <body>
-    <SiteHeader
-      client:load
-      transition:persist="nav"
-      currentPath={currentPath}
-    />
-    <Outillage client:load />
     <div class="site-shell">
+      <SiteHeader
+        client:load
+        transition:persist="nav"
+        currentPath={currentPath}
+      />
       <main
         class="site-main"
         transition:animate={fade({ duration: "600ms" })}
@@ -55,6 +54,7 @@ const pageTitle = title === SITE.nom ? title : `${title} · ${SITE.nom}`;
         <span>{SITE.nom}</span>
         <span>...</span>
       </footer>
+      <Outillage client:load />
     </div>
   </body>
 </html>

@@ -17,8 +17,6 @@
 
 .nav-glass {
   pointer-events: auto;
-  position: relative;
-  isolation: isolate;
   width: min(1120px, 100%);
   display: flex;
   align-items: center;
@@ -26,24 +24,15 @@
   gap: clamp(0.75rem, 2vw, 1.5rem);
   min-height: 3.5rem;
   padding: 0.45rem 0.55rem 0.45rem 1.15rem;
-  background: transparent;
+  border: 4px outset var(--glass-border);
+  background: var(--glass-bg);
+  /* sans -webkit- : LightningCSS ne garderait que le préfixe, Chrome ignore */
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
   transition:
     background var(--duration) var(--ease-out),
     border-color var(--duration) var(--ease-out);
-}
-
-/* Glass sur ::before : clip-path + backdrop-filter sur le même calque (Chrome) */
-.nav-glass::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  border: 4px outset var(--glass-border);
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
-  clip-path: polygon(
+  /*chevron*/
+    clip-path: polygon(
     0% 0%,
     100% 0%,
     calc(100% - 18px) 50%,
@@ -51,12 +40,9 @@
     0% 100%,
     18px 50%
   );
-  transition:
-    background var(--duration) var(--ease-out),
-    border-color var(--duration) var(--ease-out);
 }
 
-.nav-glass.is-open::before {
+.nav-glass.is-open {
   background: var(--glass-bg-strong);
   border-color: color-mix(in srgb, var(--color-accent) 25%, var(--glass-border));
 }
@@ -176,7 +162,6 @@
   color: var(--color-ink);
   background: var(--glass-bg-strong);
   backdrop-filter: blur(28px) saturate(1.2) brightness(0.78);
-  -webkit-backdrop-filter: blur(28px) saturate(1.2) brightness(0.78);
   opacity: 0;
   visibility: hidden;
   pointer-events: none;

@@ -4,18 +4,14 @@
 
 .outillage {
   position: fixed;
-  left: 0;
-  right: 0;
+  left: 50%;
   bottom: clamp(1rem, 3vw, 2.25rem);
   z-index: var(--z-nav);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: max-content;
-  max-width: calc(100% - 1.5rem);
-  margin-inline: auto;
   gap: 0.55rem;
-  /* pas de transform ici : ça casse backdrop-filter des enfants */
+  transform: translateX(-50%);
   pointer-events: none;
 }
 
@@ -33,28 +29,15 @@
 }
 
 .outillage-bar {
-  position: relative;
-  isolation: isolate;
   display: flex;
   align-items: center;
   gap: 0.45rem;
   height: var(--outillage-hauteur-barre);
   padding: 0 0.9rem;
   border-radius: var(--radius-pill);
-  background: transparent;
-}
-
-.outillage-bar::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  border-radius: inherit;
   border: 3px outset var(--glass-border);
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
 }
 
 .outillage-item {
@@ -124,36 +107,25 @@
 }
 
 .outillage-player {
-  position: relative;
-  isolation: isolate;
   width: min(20rem, calc(100vw - 1.5rem));
   padding: 0.85rem 0.95rem;
   border-radius: 1.15rem;
-  background: transparent;
-  opacity: 0;
-  visibility: hidden;
-  /* pas de transform sur ce bloc : casse le backdrop-filter du ::before */
-  transition:
-    opacity var(--duration) var(--ease-out),
-    visibility var(--duration);
-}
-
-.outillage-player::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  border-radius: inherit;
   border: 1px dashed var(--glass-border);
   background: var(--glass-bg-strong);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.9);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.9);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.6rem);
+  transition:
+    opacity var(--duration) var(--ease-out),
+    transform var(--duration) var(--ease-out),
+    visibility var(--duration);
 }
 
 .outillage-player.is-open {
   opacity: 1;
   visibility: visible;
+  transform: translateY(0);
 }
 
 .outillage-player-meta {
