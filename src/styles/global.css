@@ -50,10 +50,7 @@ body {
   font-size: 1.125rem;
   line-height: 1.55;
   color: var(--color-ink);
-  background:
-    radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 55%),
-    radial-gradient(90% 60% at 100% 0%, color-mix(in srgb, var(--color-signal) 8%, transparent), transparent 45%),
-    linear-gradient(180deg, var(--color-void), var(--color-bg) 40%, var(--color-void));
+  background: var(--color-void);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;

@@ -3,7 +3,7 @@
    ============================================================ */
 
 :root {
-  /* Surfaces (jamais noir #000 pur) */
+  /* Surfaces */
   --color-void: #121116;
   --color-bg: #17151c;
   --color-surface: #1e1b24;
@@ -11,15 +11,15 @@
   --color-line: #3a3545;
 
   /* Texte */
-  --color-ink: #e4ddd2;
-  --color-ink-muted: #9a948a;
-  --color-ink-faint: #6a655c;
+  --color-ink: #f3edf6;
+  --color-ink-muted: #948a9a;
+  --color-ink-faint: #605c6a;
 
-  /* Accents gothique / tech */
-  --color-accent: #8f3d45; /* sang oxydé */
-  --color-accent-soft: #b85c64;
-  --color-signal: #6ec8b8; /* terminal froid type Lain */
-  --color-signal-dim: #3d7a72;
+  /* Accents */
+  --color-accent: #563d8f; 
+  --color-accent-soft: #7c5cb8;
+  --color-signal: #956ec8; 
+  --color-signal-dim: #653d7a;
 
   /* Glass / blur menu */
   --glass-bg: color-mix(in srgb, var(--color-bg) 42%, transparent);
