@@ -105,20 +105,15 @@
 }
 
 .nav-desktop-link.active {
-  font-style: italic;
   color: var(--color-ink);
 }
 
 /* Menu Hamburger (mobile) */
 .nav-toggle {
-  flex-shrink: 0;
-  width: 2.55rem;
+  width: 3rem;
   height: 2.55rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--glass-border);
   display: grid;
   place-items: center;
-  background: color-mix(in srgb, var(--color-bg) 55%, transparent);
   transition:
     background var(--duration-fast) var(--ease-out),
     border-color var(--duration-fast) var(--ease-out);
@@ -207,12 +202,12 @@
 .menu-link {
   display: inline-flex;
   align-items: baseline;
-  gap: 0.75rem;
+  gap: 1rem;
   font-family: var(--font-bloody);
-  font-size: clamp(2.2rem, 11vw, 3.4rem);
+  font-size: clamp(2rem, 11vw, 3rem);
   font-weight: 500;
   letter-spacing: -0.02em;
-  padding-block: 0.1em;
+  padding-block: 0.3em;
   transition:
     color var(--duration-fast) var(--ease-out),
     transform var(--duration) var(--ease-out);
@@ -222,7 +217,7 @@
   font-family: var(--font-bloody);
   font-size: 0.7rem;
   letter-spacing: 0.12em;
-  color: var(--color-accent);
+  color: var(--color-ink-muted);
   transform: translateY(-0.3em);
 }
 
