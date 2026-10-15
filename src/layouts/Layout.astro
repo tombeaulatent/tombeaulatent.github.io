@@ -1,7 +1,8 @@
 ---
 import { ClientRouter, fade } from "astro:transitions";
 import SiteHeader from "../components/react/SiteHeader";
-import { SITE } from "../data/nav";
+import Outillage from "../components/react/Outillage";
+import { SITE } from "../data/site";
 import "../styles/global.css";
 
 type Props = {
@@ -10,12 +11,12 @@ type Props = {
 };
 
 const {
-  title = SITE.name,
-  description = "Portfolio sombre — gothique, technologie, mémoire latente.",
+  title = SITE.nom,
+  description = "Portfolio sombre   gothique, technologie, mémoire latente.",
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const pageTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
+const pageTitle = title === SITE.nom ? title : `${title} · ${SITE.nom}`;
 ---
 
 <!doctype html>
@@ -46,9 +47,10 @@ const pageTitle = title === SITE.name ? title : `${title} · ${SITE.name}`;
         <slot />
       </main>
       <footer class="site-footer page-pad" transition:persist="footer">
-        <span>{SITE.name}</span>
+        <span>{SITE.nom}</span>
         <span>...</span>
       </footer>
+      <Outillage client:load />
     </div>
   </body>
 </html>

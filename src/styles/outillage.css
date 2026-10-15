@@ -1,0 +1,202 @@
+/* ============================================================
+   OUTILLAGE   barre bas (réseaux + lecteur)
+   ============================================================ */
+
+.outillage {
+  position: fixed;
+  left: 50%;
+  bottom: clamp(1rem, 3vw, 2.25rem);
+  z-index: var(--z-nav);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.outillage-shell {
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: var(--outillage-hauteur-barre);
+}
+
+.outillage-bar,
+.outillage-player {
+  pointer-events: auto;
+}
+
+.outillage-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  height: var(--outillage-hauteur-barre);
+  padding: 0 0.9rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
+}
+
+.outillage-item {
+  position: relative;
+  width: var(--outillage-taille-base);
+  height: var(--outillage-taille-base);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--color-ink-muted);
+  border-radius: 0.65rem;
+  transition: color var(--duration-fast) var(--ease-out);
+  will-change: width, height;
+}
+
+.outillage-icon {
+  width: 62%;
+  height: 62%;
+  background: currentColor;
+  mask: var(--outillage-icon) center / contain no-repeat;
+  -webkit-mask: var(--outillage-icon) center / contain no-repeat;
+}
+
+.outillage-item:hover,
+.outillage-item:focus-visible {
+  color: var(--color-ink);
+}
+
+.outillage-item-trigger.is-active {
+  color: var(--color-accent-soft);
+}
+
+.outillage-item-trigger.is-active:hover {
+  color: var(--color-ink);
+}
+
+/* Boutons du lecteur (pas d’effet magnification) */
+.outillage-btn {
+  width: 2.45rem;
+  height: 2.45rem;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: var(--color-ink-muted);
+  border-radius: 999px;
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out);
+}
+
+.outillage-btn .outillage-icon {
+  width: 1.15rem;
+  height: 1.15rem;
+}
+
+.outillage-btn:hover {
+  color: var(--color-ink);
+  background: color-mix(in srgb, var(--color-bg) 45%, transparent);
+}
+
+.outillage-btn-play {
+  color: var(--color-accent-soft);
+}
+
+.outillage-btn-play:hover {
+  color: var(--color-ink);
+}
+
+.outillage-player {
+  width: min(20rem, calc(100vw - 1.5rem));
+  padding: 0.85rem 0.95rem;
+  border-radius: 1.15rem;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-strong);
+  backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.9);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.9);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.6rem);
+  transition:
+    opacity var(--duration) var(--ease-out),
+    transform var(--duration) var(--ease-out),
+    visibility var(--duration);
+}
+
+.outillage-player.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.outillage-player-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-bottom: 0.7rem;
+}
+
+.outillage-player-title {
+  font-family: var(--font-bloody);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--color-ink);
+}
+
+.outillage-player-artist {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-faint);
+  text-transform: uppercase;
+}
+
+.outillage-player-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.outillage-progress {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.outillage-progress-track {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-ink) 16%, transparent);
+  overflow: hidden;
+}
+
+.outillage-progress-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent-soft);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+.outillage-progress-times {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .outillage-item {
+    will-change: auto;
+  }
+}

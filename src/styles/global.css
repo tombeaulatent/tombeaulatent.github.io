@@ -1,6 +1,7 @@
 @import "./tokens.css";
 @import "./menu.css";
 @import "./hero.css";
+@import "./outillage.css";
 
 @font-face {
   font-family: "Kingjola";
@@ -41,7 +42,9 @@ a,
 button,
 [role="button"],
 .nav-toggle,
-.nav-desktop-link {
+.nav-desktop-link,
+.outillage-btn,
+.outillage-item {
   cursor: url("/cursor/cursor.cur"), pointer;
 }
 
@@ -50,7 +53,7 @@ body {
   font-size: 1.125rem;
   line-height: 1.55;
   color: var(--color-ink);
-  background: var(--color-void);
+  background: var(--color-bg);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -107,7 +110,7 @@ button {
   padding-inline: clamp(1rem, 4vw, 3rem);
 }
 
-/* View Transitions — fondu fluide (Astro ClientRouter) */
+/* View Transitions   fondu fluide (Astro ClientRouter) */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 480ms;
@@ -171,7 +174,8 @@ button {
 
 .site-footer {
   padding: var(--space-md) clamp(1rem, 4vw, 3rem);
-  border-top: 1px solid var(--color-line);
+  padding-bottom: calc(var(--space-md) + 4rem);
+  border-top: 1px solid var(--color-bg);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;

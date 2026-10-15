@@ -10,7 +10,3 @@ export const NAV_LINKS: NavLink[] = [
   { href: "/tatouage", label: "Tatouage" },
   { href: "/curriculum-vitae", label: "Curriculum vitæ" },
 ];
-
-export const SITE = {
-  name: "TombeauLatent",
-};

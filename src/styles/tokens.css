@@ -1,25 +1,19 @@
 /* ============================================================
-   TOKENS — modifie librement ces variables
+   TOKENS   modifie librement ces variables
    ============================================================ */
 
 :root {
   /* Surfaces */
-  --color-void: #121116;
-  --color-bg: #17151c;
-  --color-surface: #1e1b24;
-  --color-elevated: #26222d;
-  --color-line: #3a3545;
+  --color-bg: #070707;
 
   /* Texte */
-  --color-ink: #f3edf6;
-  --color-ink-muted: #948a9a;
-  --color-ink-faint: #605c6a;
+  --color-ink: #ededed;
+  --color-ink-muted: #b8b4ba;
+  --color-ink-faint: #949198;
 
   /* Accents */
   --color-accent: #563d8f; 
   --color-accent-soft: #7c5cb8;
-  --color-signal: #956ec8; 
-  --color-signal-dim: #653d7a;
 
   /* Glass / blur menu */
   --glass-bg: color-mix(in srgb, var(--color-bg) 42%, transparent);
@@ -45,6 +39,13 @@
   --radius-sm: 2px;
   --radius-md: 10px;
   --radius-pill: 999px;
+
+  /* Outillage (barre bas)   lu aussi par le JS */
+  --outillage-taille-base: 34px;
+  --outillage-taille-max: 56px;
+  --outillage-distance-loupe: 160px;
+  --outillage-hauteur-barre: 56px;
+  --outillage-hauteur-coquille-survol: 140px;
 
   --z-base: 1;
   --z-nav: 40;

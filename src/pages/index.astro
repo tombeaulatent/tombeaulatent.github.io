@@ -1,17 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import AuroraBg from "../components/react/AuroraBg";
-import { SITE } from "../data/nav";
+import { SITE } from "../data/site";
 ---
 
-<Layout title={SITE.name}>
+<Layout title={SITE.nom}>
   <section class="hero">
     <div class="hero-atmosphere" aria-hidden="true">
       <AuroraBg client:idle />
     </div>
 
     <div class="hero-content">
-      <h1 class="hero-brand">{SITE.name}</h1>
+      <h1 class="hero-brand">{SITE.nom}</h1>
     </div>
   </section>
 </Layout>

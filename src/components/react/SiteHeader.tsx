@@ -1,167 +1,52 @@
-import { useEffect, useId, useRef, useState } from "react";
-import gsap from "gsap";
-import { NAV_LINKS, SITE } from "../../data/nav";
+import { useId } from "react";
+import { NAV_LINKS } from "../../data/nav";
+import { SITE } from "../../data/site";
+import { useCheminAstro } from "../../hooks/useCheminAstro";
+import { useMenuMobile } from "../../hooks/useMenuMobile";
+import { useAnimationMenu } from "../../hooks/useAnimationMenu";
 
 type SiteHeaderProps = {
   currentPath?: string;
 };
 
-function normalizePath(path: string) {
-  if (!path || path === "") return "/";
-  return path.length > 1 && path.endsWith("/") ? path.slice(0, -1) : path;
-}
-
-function isCurrent(pathname: string, href: string) {
-  const path = normalizePath(pathname);
-  const target = normalizePath(href);
-  return (
-    path === target || (target !== "/" && path.startsWith(`${target}/`))
-  );
-}
-
 export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
-  const [pathname, setPathname] = useState(normalizePath(currentPath));
-  const [open, setOpen] = useState(false);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const linksRef = useRef<HTMLAnchorElement[]>([]);
-  const metaRef = useRef<HTMLParagraphElement>(null);
-  const footerRef = useRef<HTMLParagraphElement>(null);
-  const titleId = useId();
-  const tlRef = useRef<gsap.core.Timeline | null>(null);
-  const bootedRef = useRef(false);
-
-  useEffect(() => {
-    const syncPath = () => setPathname(normalizePath(window.location.pathname));
-    syncPath();
-    document.addEventListener("astro:page-load", syncPath);
-    document.addEventListener("astro:after-swap", syncPath);
-    return () => {
-      document.removeEventListener("astro:page-load", syncPath);
-      document.removeEventListener("astro:after-swap", syncPath);
-    };
-  }, []);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 900px)");
-    const onChange = () => {
-      if (mq.matches) setOpen(false);
-    };
-    onChange();
-    mq.addEventListener("change", onChange);
-    return () => mq.removeEventListener("change", onChange);
-  }, []);
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
-
-  useEffect(() => {
-    document.body.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [open]);
-
-  useEffect(() => {
-    const overlay = overlayRef.current;
-    if (!overlay) return;
-
-    if (!bootedRef.current) {
-      bootedRef.current = true;
-      gsap.set(overlay, { autoAlpha: 0, clipPath: "inset(0 0 100% 0)" });
-      gsap.set([metaRef.current, footerRef.current, ...linksRef.current], {
-        autoAlpha: 0,
-      });
-      return;
-    }
-
-    tlRef.current?.kill();
-    const links = linksRef.current.filter(Boolean);
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
-    tlRef.current = tl;
-
-    if (open) {
-      tl.fromTo(
-        overlay,
-        { clipPath: "inset(0 0 100% 0)", autoAlpha: 0.55 },
-        { clipPath: "inset(0 0 0% 0)", autoAlpha: 1, duration: 0.5 },
-      )
-        .fromTo(
-          metaRef.current,
-          { y: 16, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.3 },
-          "-=0.22",
-        )
-        .fromTo(
-          links,
-          { y: 36, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.45, stagger: 0.06 },
-          "-=0.18",
-        )
-        .fromTo(
-          footerRef.current,
-          { y: 10, autoAlpha: 0 },
-          { y: 0, autoAlpha: 1, duration: 0.28 },
-          "-=0.2",
-        );
-    } else {
-      tl.to(links, { y: -10, autoAlpha: 0, duration: 0.18, stagger: 0.03 })
-        .to(
-          [metaRef.current, footerRef.current],
-          { autoAlpha: 0, duration: 0.12 },
-          "<",
-        )
-        .to(overlay, {
-          clipPath: "inset(0 0 100% 0)",
-          autoAlpha: 0,
-          duration: 0.35,
-          ease: "power2.inOut",
-        });
-    }
-
-    return () => {
-      tl.kill();
-    };
-  }, [open]);
-
-  const closeMenu = () => setOpen(false);
+  const idMenu = useId();
+  const { estCourant } = useCheminAstro(currentPath);
+  const { ouvert, fermerMenu, basculerMenu } = useMenuMobile();
+  const { refOverlay, refMeta, refPied, definirRefLien } =
+    useAnimationMenu(ouvert);
 
   return (
     <>
       <header className="nav-pill-wrap" data-astro-transition-persist="nav">
-        <nav className={`nav-glass${open ? " is-open" : ""}`} aria-label="Principale">
-          <a className="nav-brand" href="/" onClick={closeMenu}>
-            - - -
-          </a>
+        <nav
+          className={`nav-glass${ouvert ? " is-open" : ""}`}
+          aria-label="Principale"
+        >
+          <a className="nav-brand" href="/" onClick={fermerMenu} />
 
-          {/* Desktop : liens dans la barre glass */}
           <ul className="nav-desktop">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
+            {NAV_LINKS.map((lien) => (
+              <li key={lien.href}>
                 <a
                   className={`nav-desktop-link${
-                    isCurrent(pathname, link.href) ? " is-current" : ""
+                    estCourant(lien.href) ? " is-current" : ""
                   }`}
-                  href={link.href}
+                  href={lien.href}
                 >
-                  {link.label}
+                  {lien.label}
                 </a>
               </li>
             ))}
           </ul>
 
-          {/* Mobile uniquement */}
           <button
             type="button"
             className="nav-toggle"
-            aria-expanded={open}
-            aria-controls={titleId}
-            aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-            onClick={() => setOpen((v) => !v)}
+            aria-expanded={ouvert}
+            aria-controls={idMenu}
+            aria-label={ouvert ? "Fermer le menu" : "Ouvrir le menu"}
+            onClick={basculerMenu}
           >
             <span className="nav-toggle-bars" aria-hidden="true">
               <span />
@@ -172,40 +57,37 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
         </nav>
       </header>
 
-      {/* Overlay mobile uniquement (CSS le masque dès 900px) */}
       <div
-        ref={overlayRef}
-        id={titleId}
-        className={`menu-overlay${open ? " is-open" : ""}`}
+        ref={refOverlay}
+        id={idMenu}
+        className={`menu-overlay${ouvert ? " is-open" : ""}`}
         role="dialog"
         aria-modal="true"
         aria-label="Navigation mobile"
-        aria-hidden={!open}
+        aria-hidden={!ouvert}
       >
         <div className="menu-stage">
-          <p className="menu-meta" ref={metaRef}>
-            {SITE.name}
+          <p className="menu-meta" ref={refMeta}>
+            {SITE.nom}
           </p>
           <ul className="menu-list">
-            {NAV_LINKS.map((link, i) => (
-              <li key={link.href}>
+            {NAV_LINKS.map((lien, i) => (
+              <li key={lien.href}>
                 <a
-                  ref={(el) => {
-                    if (el) linksRef.current[i] = el;
-                  }}
+                  ref={definirRefLien(i)}
                   className={`menu-link${
-                    isCurrent(pathname, link.href) ? " is-current" : ""
+                    estCourant(lien.href) ? " is-current" : ""
                   }`}
-                  href={link.href}
-                  onClick={closeMenu}
+                  href={lien.href}
+                  onClick={fermerMenu}
                 >
                   <span className="idx">0{i + 1}</span>
-                  {link.label}
+                  {lien.label}
                 </a>
               </li>
             ))}
           </ul>
-          <p className="menu-footer" ref={footerRef}>
+          <p className="menu-footer" ref={refPied}>
             protocol://tombeaulatent.com
           </p>
         </div>

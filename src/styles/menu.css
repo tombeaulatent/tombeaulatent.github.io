@@ -28,7 +28,6 @@
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.15) brightness(0.92);
-  box-shadow: --color-void;
   transition:
     background var(--duration) var(--ease-out),
     border-color var(--duration) var(--ease-out);
@@ -45,7 +44,7 @@
 
 .nav-glass.is-open {
   background: var(--glass-bg-strong);
-  border-color: color-mix(in srgb, var(--color-signal) 25%, var(--glass-border));
+  border-color: color-mix(in srgb, var(--color-accent) 25%, var(--glass-border));
 }
 
 .nav-brand {
@@ -70,29 +69,43 @@
 }
 
 .nav-desktop-link {
+  position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 2.35rem;
   padding: 0.35rem 0.9rem;
-  border-radius: var(--radius-pill);
   font-family: var(--font-bloody);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   color: var(--color-ink-muted);
-  border: 1px solid transparent;
-  transition:
-    color var(--duration-fast) var(--ease-out),
-    background var(--duration-fast) var(--ease-out),
-    border-color var(--duration-fast) var(--ease-out);
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.nav-desktop-link::after {
+  content: "";
+  position: absolute;
+  left: 0.9rem;
+  right: 0.9rem;
+  bottom: 0.35rem;
+  height: 1px;
+  background: var(--color-ink-muted);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--duration) var(--ease-out);
 }
 
 .nav-desktop-link:hover {
   color: var(--color-ink);
-  background: color-mix(in srgb, var(--color-elevated) 55%, transparent);
+}
+
+.nav-desktop-link:hover::after,
+.nav-desktop-link.is-current::after {
+  transform: scaleX(1);
 }
 
 .nav-desktop-link.is-current {
   font-style: italic;
+  color: var(--color-ink);
 }
 
 /* Menu Hamburger (mobile) */
@@ -104,14 +117,14 @@
   border: 1px solid var(--glass-border);
   display: grid;
   place-items: center;
-  background: color-mix(in srgb, var(--color-surface) 55%, transparent);
+  background: color-mix(in srgb, var(--color-bg) 55%, transparent);
   transition:
     background var(--duration-fast) var(--ease-out),
     border-color var(--duration-fast) var(--ease-out);
 }
 
 .nav-toggle:hover {
-  border-color: color-mix(in srgb, var(--color-signal) 40%, var(--glass-border));
+  border-color: color-mix(in srgb, var(--color-accent) 40%, var(--glass-border));
 }
 
 .nav-toggle-bars {
@@ -177,8 +190,6 @@
 
 .menu-meta {
   font-family: var(--font-bloody);
-  font-size: 0.68rem;
-  letter-spacing: 0.16em;
   color: var(--color-ink-faint);
   margin: 0 0 var(--space-lg);
 }
@@ -199,7 +210,6 @@
   font-family: var(--font-bloody);
   font-size: clamp(2.2rem, 11vw, 3.4rem);
   font-weight: 500;
-  line-height: 1.08;
   letter-spacing: -0.02em;
   padding-block: 0.1em;
   transition:
@@ -211,13 +221,13 @@
   font-family: var(--font-bloody);
   font-size: 0.7rem;
   letter-spacing: 0.12em;
-  color: var(--color-signal);
+  color: var(--color-accent);
   transform: translateY(-0.3em);
 }
 
 .menu-link:hover,
 .menu-link.is-current {
-  color: var(--color-signal);
+  color: var(--color-ink-muted);
   transform: translateX(0.25rem);
 }
 
@@ -227,7 +237,7 @@
   font-family: var(--font-bloody);
   font-size: 0.7rem;
   letter-spacing: 0.08em;
-  color: var(--color-ink-faint);
+  color: var(--color-ink-muted);
 }
 
 @media (min-width: 900px) {
