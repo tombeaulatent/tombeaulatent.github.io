@@ -12,6 +12,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.3.8"
+    "@asciitopia/core": "^0.2.1",
+    "@asciitopia/react": "^0.2.1",
+    "@astrojs/react": "^7.0.1",
+    "astro": "^7.3.8",
+    "gsap": "^3.15.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0"
   }
 }

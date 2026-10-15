@@ -1,0 +1,187 @@
+@import "./tokens.css";
+@import "./menu.css";
+@import "./hero.css";
+
+@font-face {
+  font-family: "Kingjola";
+  src: url("/fonts/kingjola.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Bloody";
+  src: url("/fonts/BLOODY_CRE.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  cursor: url("/cursor/cursor.cur"), auto;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+/* Même curseur partout (liens, boutons, etc.) */
+a,
+button,
+[role="button"],
+.nav-toggle,
+.nav-desktop-link {
+  cursor: url("/cursor/cursor.cur"), pointer;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--color-ink);
+  background:
+    radial-gradient(120% 80% at 50% -10%, color-mix(in srgb, var(--color-accent) 16%, transparent), transparent 55%),
+    radial-gradient(90% 60% at 100% 0%, color-mix(in srgb, var(--color-signal) 8%, transparent), transparent 45%),
+    linear-gradient(180deg, var(--color-void), var(--color-bg) 40%, var(--color-void));
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 55%, transparent);
+  color: var(--color-ink);
+}
+
+.site-shell {
+  position: relative;
+  z-index: var(--z-base);
+  min-height: 100dvh;
+  width: 100%;
+  overflow-x: clip;
+}
+
+.site-main {
+  position: relative;
+  width: 100%;
+}
+
+.page-pad {
+  padding-inline: clamp(1rem, 4vw, 3rem);
+}
+
+/* View Transitions — fondu fluide (Astro ClientRouter) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 480ms;
+  animation-timing-function: var(--ease-out);
+}
+
+::view-transition-old(main) {
+  animation: tl-fade-out 380ms var(--ease-out) both;
+}
+
+::view-transition-new(main) {
+  animation: tl-fade-in 480ms var(--ease-out) both;
+}
+
+@keyframes tl-fade-out {
+  to {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes tl-fade-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-old(main),
+  ::view-transition-new(main) {
+    animation-duration: 1ms !important;
+  }
+}
+
+/* Pages intérieures : fond + titre centré */
+.page-screen {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: calc(var(--nav-height) + var(--space-lg)) var(--space-md) var(--space-xl);
+}
+
+.page-screen h1 {
+  margin: 0;
+  font-family: var(--font-bloody);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  line-height: 1;
+  text-align: center;
+  color: var(--color-ink);
+}
+
+.site-footer {
+  padding: var(--space-md) clamp(1rem, 4vw, 3rem);
+  border-top: 1px solid var(--color-line);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-md);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}

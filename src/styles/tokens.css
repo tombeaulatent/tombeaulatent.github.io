@@ -1,0 +1,58 @@
+/* ============================================================
+   TOKENS — modifie librement ces variables
+   ============================================================ */
+
+:root {
+  /* Surfaces (jamais noir #000 pur) */
+  --color-void: #121116;
+  --color-bg: #17151c;
+  --color-surface: #1e1b24;
+  --color-elevated: #26222d;
+  --color-line: #3a3545;
+
+  /* Texte */
+  --color-ink: #e4ddd2;
+  --color-ink-muted: #9a948a;
+  --color-ink-faint: #6a655c;
+
+  /* Accents gothique / tech */
+  --color-accent: #8f3d45; /* sang oxydé */
+  --color-accent-soft: #b85c64;
+  --color-signal: #6ec8b8; /* terminal froid type Lain */
+  --color-signal-dim: #3d7a72;
+
+  /* Glass / blur menu */
+  --glass-bg: color-mix(in srgb, var(--color-bg) 42%, transparent);
+  --glass-bg-strong: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  --glass-border: color-mix(in srgb, var(--color-ink) 18%, transparent);
+  --glass-blur: 18px;
+
+  /* Typo */
+  --font-brand: "Kingjola", "Cinzel", serif;
+  --font-bloody: "Bloody", "Kingjola", serif;
+  --font-body: "Cormorant Garamond", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "Consolas", monospace;
+
+  /* Espacements */
+  --space-xs: 0.35rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.25rem;
+  --space-lg: 2rem;
+  --space-xl: 3.5rem;
+  --space-2xl: 6rem;
+
+  --nav-height: 5rem;
+  --radius-sm: 2px;
+  --radius-md: 10px;
+  --radius-pill: 999px;
+
+  --z-base: 1;
+  --z-nav: 40;
+  --z-menu: 50;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 180ms;
+  --duration: 420ms;
+  --duration-slow: 780ms;
+}

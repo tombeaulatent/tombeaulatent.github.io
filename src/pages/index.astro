@@ -1,16 +1,17 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import AuroraBg from "../components/react/AuroraBg";
+import { SITE } from "../data/nav";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title={SITE.name}>
+  <section class="hero">
+    <div class="hero-atmosphere" aria-hidden="true">
+      <AuroraBg client:idle />
+    </div>
+
+    <div class="hero-content">
+      <h1 class="hero-brand">{SITE.name}</h1>
+    </div>
+  </section>
+</Layout>
