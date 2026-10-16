@@ -6,37 +6,46 @@ import gsap from "gsap";
  * Respecte prefers-reduced-motion : bascule instantanée sans timeline.
  */
 export function useAnimationMenu(ouvert: boolean) {
-  // Conteneur plein écran du menu (clip-path + opacité)
+  // Conteneur plein écran du menu
   const refOverlay = useRef<HTMLDivElement>(null);
-  // Liens de navigation   remplis via definirRefLien(index)
+  // Liens de navigation ( remplis via definirRefLien(index) )
   const refsLiens = useRef<(HTMLAnchorElement | null)[]>([]);
   // Titre / nom en haut de l’overlay
   const refMeta = useRef<HTMLParagraphElement>(null);
   // Pied de page de l’overlay
   const refPied = useRef<HTMLParagraphElement>(null);
-  // Timeline en cours   tuée avant chaque nouvelle animation
+  // Timeline en cours ( tuée avant chaque nouvelle animation )
   const refTimeline = useRef<gsap.core.Timeline | null>(null);
   // Premier passage : pose l’état caché sans animer la fermeture initiale
   const dejaInitialise = useRef(false);
   // Miroir de prefers-reduced-motion (mis à jour par matchMedia)
   const reduireMouvementRef = useRef(false);
 
-  // Suit la préférence système « réduire les animations »
+  // Callback ref par index — accepte null au démontage pour éviter les refs stale
+  const definirRefLien = (index: number) => (el: HTMLAnchorElement | null) => {
+    refsLiens.current[index] = el;
+  };
+
+  // Suit la préférence système (réduire les animations)
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    reduireMouvementRef.current = media.matches;
     const surChangement = () => {
       reduireMouvementRef.current = media.matches;
     };
+    reduireMouvementRef.current = media.matches;
     media.addEventListener("change", surChangement);
     return () => media.removeEventListener("change", surChangement);
   }, []);
 
   useEffect(() => {
     const overlay = refOverlay.current;
+    const liens = refsLiens.current.filter(Boolean);
+    const contenus = [refMeta.current, refPied.current, ...liens];
+    let timeline: gsap.core.Timeline | null = null;
+
     if (!overlay) return;
 
-    // Init : overlay et contenus invisibles, sans jouer la timeline de fermeture
+    // Initialisation : overlay et contenus invisibles, sans jouer la timeline de fermeture
     if (!dejaInitialise.current) {
       dejaInitialise.current = true;
       gsap.set(overlay, { autoAlpha: 0, clipPath: "inset(0 0 100% 0)" });
@@ -45,9 +54,6 @@ export function useAnimationMenu(ouvert: boolean) {
       });
       return;
     }
-
-    const liens = refsLiens.current.filter(Boolean);
-    const contenus = [refMeta.current, refPied.current, ...liens];
 
     // Réduction de mouvement : état final immédiat, pas de timeline
     if (reduireMouvementRef.current) {
@@ -68,7 +74,7 @@ export function useAnimationMenu(ouvert: boolean) {
 
     // Animation complète (ouverture ou fermeture)
     refTimeline.current?.kill();
-    const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+    timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
     refTimeline.current = timeline;
 
     if (ouvert) {
@@ -113,14 +119,9 @@ export function useAnimationMenu(ouvert: boolean) {
     }
 
     return () => {
-      timeline.kill();
+      timeline?.kill();
     };
   }, [ouvert]);
-
-  // Callback ref par index   accepte null au démontage pour éviter les refs stale
-  const definirRefLien = (index: number) => (el: HTMLAnchorElement | null) => {
-    refsLiens.current[index] = el;
-  };
 
   return {
     refOverlay,

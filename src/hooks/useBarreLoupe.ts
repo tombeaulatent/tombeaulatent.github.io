@@ -36,8 +36,10 @@ function tailleDepuisSouris(
   centreElementX: number,
   mesures: MesuresLoupe,
 ) {
+  let ecart = 0;
+
   if (!Number.isFinite(positionSourisX)) return mesures.tailleBase;
-  const ecart = Math.abs(positionSourisX - centreElementX);
+  ecart = Math.abs(positionSourisX - centreElementX);
   if (ecart >= mesures.distanceLoupe) return mesures.tailleBase;
   return (
     mesures.tailleMax -
@@ -60,22 +62,64 @@ export function useBarreLoupe() {
   const mesuresRef = useRef<MesuresLoupe | null>(null);
   const reduireMouvementRef = useRef(false);
 
+  const reinitialiserLoupe = useCallback(() => {
+    const mesures = mesuresRef.current;
+    if (!mesures) return;
+    largeurVers.current.forEach((vers) => vers?.(mesures.tailleBase));
+    hauteurVers.current.forEach((vers) => vers?.(mesures.tailleBase));
+    hauteurCoquilleVers.current?.(mesures.hauteurBarre);
+  }, []);
+
+  const auMouvementSouris = useCallback((e: MouseEvent<HTMLElement>) => {
+    const mesures = mesuresRef.current;
+
+    if (reduireMouvementRef.current) return;
+    if (!mesures) return;
+
+    hauteurCoquilleVers.current?.(
+      Math.max(
+        mesures.hauteurCoquilleSurvol,
+        mesures.tailleMax + mesures.tailleMax / 2 + 4,
+      ),
+    );
+
+    elementsRefs.current.forEach((el, i) => {
+      let rect: DOMRect | null = null;
+      let taille = 0;
+
+      if (!el) return;
+      rect = el.getBoundingClientRect();
+      taille = tailleDepuisSouris(
+        e.clientX,
+        rect.left + rect.width / 2,
+        mesures,
+      );
+      largeurVers.current[i]?.(taille);
+      hauteurVers.current[i]?.(taille);
+    });
+  }, []);
+
+  const definirRefElement =
+    (index: number) => (el: HTMLElement | null) => {
+      elementsRefs.current[index] = el;
+    };
+
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");
-    reduireMouvementRef.current = media.matches;
     const surChangement = () => {
       reduireMouvementRef.current = media.matches;
     };
+    reduireMouvementRef.current = media.matches;
     media.addEventListener("change", surChangement);
     return () => media.removeEventListener("change", surChangement);
   }, []);
 
   useEffect(() => {
     const mesures = lireMesuresLoupe();
-    mesuresRef.current = mesures;
-
     const elements = elementsRefs.current.filter(Boolean) as HTMLElement[];
     const ressort = { duration: 0.35, ease: "power3.out" } as const;
+
+    mesuresRef.current = mesures;
 
     largeurVers.current = elements.map((el) =>
       gsap.quickTo(el, "width", ressort),
@@ -103,44 +147,6 @@ export function useBarreLoupe() {
       hauteurCoquilleVers.current = null;
     };
   }, []);
-
-  const reinitialiserLoupe = useCallback(() => {
-    const mesures = mesuresRef.current;
-    if (!mesures) return;
-    largeurVers.current.forEach((vers) => vers?.(mesures.tailleBase));
-    hauteurVers.current.forEach((vers) => vers?.(mesures.tailleBase));
-    hauteurCoquilleVers.current?.(mesures.hauteurBarre);
-  }, []);
-
-  const auMouvementSouris = useCallback((e: MouseEvent<HTMLElement>) => {
-    if (reduireMouvementRef.current) return;
-    const mesures = mesuresRef.current;
-    if (!mesures) return;
-
-    hauteurCoquilleVers.current?.(
-      Math.max(
-        mesures.hauteurCoquilleSurvol,
-        mesures.tailleMax + mesures.tailleMax / 2 + 4,
-      ),
-    );
-
-    elementsRefs.current.forEach((el, i) => {
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const taille = tailleDepuisSouris(
-        e.clientX,
-        rect.left + rect.width / 2,
-        mesures,
-      );
-      largeurVers.current[i]?.(taille);
-      hauteurVers.current[i]?.(taille);
-    });
-  }, []);
-
-  const definirRefElement =
-    (index: number) => (el: HTMLElement | null) => {
-      elementsRefs.current[index] = el;
-    };
 
   return {
     coquilleRef,

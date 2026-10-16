@@ -9,6 +9,9 @@ export const SEUIL_MENU_DESKTOP = 900;
 export function useMenuMobile() {
   const [ouvert, setOuvert] = useState(false);
 
+  const fermerMenu = () => setOuvert(false);
+  const basculerMenu = () => setOuvert((v) => !v);
+
   useEffect(() => {
     const media = window.matchMedia(
       `(min-width: ${SEUIL_MENU_DESKTOP}px)`,
@@ -35,9 +38,6 @@ export function useMenuMobile() {
       document.body.style.overflow = "";
     };
   }, [ouvert]);
-
-  const fermerMenu = () => setOuvert(false);
-  const basculerMenu = () => setOuvert((v) => !v);
 
   return {
     ouvert,

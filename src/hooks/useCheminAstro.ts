@@ -22,6 +22,8 @@ function estCheminCourant(cheminActuel: string, href: string) {
 export function useCheminAstro(cheminInitial = "/") {
   const [chemin, setChemin] = useState(normaliserChemin(cheminInitial));
 
+  const estCourant = (href: string) => estCheminCourant(chemin, href);
+
   useEffect(() => {
     setChemin(normaliserChemin(cheminInitial));
   }, [cheminInitial]);
@@ -39,8 +41,6 @@ export function useCheminAstro(cheminInitial = "/") {
       window.removeEventListener("popstate", synchroniser);
     };
   }, []);
-
-  const estCourant = (href: string) => estCheminCourant(chemin, href);
 
   return { chemin, estCourant };
 }

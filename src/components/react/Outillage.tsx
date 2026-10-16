@@ -38,19 +38,20 @@ export default function Outillage() {
     reinitialiserLoupe,
   } = useBarreLoupe();
 
-  useEffect(() => {
-    if (!lecteurOuvert) return;
-    const surTouche = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLecteurOuvert(false);
-    };
-    window.addEventListener("keydown", surTouche);
-    return () => window.removeEventListener("keydown", surTouche);
-  }, [lecteurOuvert]);
-
   const ouvrirLecteur = () => {
     setLecteurOuvert(true);
     if (!enLecture) demarrer();
   };
+
+  useEffect(() => {
+    const surTouche = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLecteurOuvert(false);
+    };
+
+    if (!lecteurOuvert) return;
+    window.addEventListener("keydown", surTouche);
+    return () => window.removeEventListener("keydown", surTouche);
+  }, [lecteurOuvert]);
 
   return (
     <div className="outillage" data-astro-transition-persist="outillage">

@@ -3,9 +3,13 @@ import { Howl } from "howler";
 import { SITE } from "../data/site";
 
 export function formaterTemps(secondes: number) {
+  let minutes = 0;
+  let reste = 0;
+
   if (!Number.isFinite(secondes) || secondes < 0) return "0:00";
-  const minutes = Math.floor(secondes / 60);
-  const reste = Math.floor(secondes % 60);
+
+  minutes = Math.floor(secondes / 60);
+  reste = Math.floor(secondes % 60);
   return `${minutes}:${reste.toString().padStart(2, "0")}`;
 }
 
@@ -21,6 +25,36 @@ export function useLecteurAudio() {
   const sonRef = useRef<Howl | null>(null);
   const rafRef = useRef<number | null>(null);
   const dureeRef = useRef(0);
+
+  const tempsActuel = duree * progression;
+
+  const demarrer = () => {
+    sonRef.current?.play();
+  };
+
+  const mettreEnPause = () => {
+    sonRef.current?.pause();
+  };
+
+  const basculerLecture = () => {
+    const son = sonRef.current;
+    if (!son) return;
+    if (son.playing()) son.pause();
+    else son.play();
+  };
+
+  const allerA = (ratio: number) => {
+    const son = sonRef.current;
+    let d = 0;
+    let borne = 0;
+
+    if (!son) return;
+    d = son.duration();
+    if (!d) return;
+    borne = Math.min(1, Math.max(0, ratio));
+    son.seek(borne * d);
+    setProgression(borne);
+  };
 
   useEffect(() => {
     const son = new Howl({
@@ -54,9 +88,12 @@ export function useLecteurAudio() {
   useEffect(() => {
     const tick = () => {
       const son = sonRef.current;
+      let d = 0;
+      let position = 0;
+
       if (son?.playing()) {
-        const d = son.duration() || dureeRef.current;
-        const position = (son.seek() as number) || 0;
+        d = son.duration() || dureeRef.current;
+        position = (son.seek() as number) || 0;
         if (d > 0) {
           setProgression(position / d);
           if (d !== dureeRef.current) {
@@ -79,33 +116,6 @@ export function useLecteurAudio() {
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
     };
   }, [enLecture]);
-
-  const demarrer = () => {
-    sonRef.current?.play();
-  };
-
-  const mettreEnPause = () => {
-    sonRef.current?.pause();
-  };
-
-  const basculerLecture = () => {
-    const son = sonRef.current;
-    if (!son) return;
-    if (son.playing()) son.pause();
-    else son.play();
-  };
-
-  const allerA = (ratio: number) => {
-    const son = sonRef.current;
-    if (!son) return;
-    const d = son.duration();
-    if (!d) return;
-    const borne = Math.min(1, Math.max(0, ratio));
-    son.seek(borne * d);
-    setProgression(borne);
-  };
-
-  const tempsActuel = duree * progression;
 
   return {
     enLecture,
