@@ -3,6 +3,10 @@
   Format téléphone : menu hamburger
    ============================================================ */
 
+.site-header-root {
+  display: contents;
+}
+
 .nav-pill-wrap {
   position: fixed;
   top: var(--space-md);
@@ -165,13 +169,10 @@
   color: var(--color-ink);
   background: var(--glass-bg-strong);
   backdrop-filter: blur(28px) saturate(1.2) brightness(0.78);
-  opacity: 0;
-  visibility: hidden;
   pointer-events: none;
 }
 
 .menu-overlay.is-open {
-  visibility: visible;
   pointer-events: auto;
 }
 

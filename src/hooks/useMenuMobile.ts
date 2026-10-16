@@ -24,6 +24,13 @@ export function useMenuMobile() {
     return () => media.removeEventListener("change", surChangement);
   }, []);
 
+  // View transitions : fermer le menu persisté entre les pages
+  useEffect(() => {
+    const surPageLoad = () => setOuvert(false);
+    document.addEventListener("astro:page-load", surPageLoad);
+    return () => document.removeEventListener("astro:page-load", surPageLoad);
+  }, []);
+
   useEffect(() => {
     const surTouche = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOuvert(false);

@@ -1,8 +1,10 @@
 import { useEffect, useId, useRef } from "react";
 import { NAV_LINKS } from "../../data/nav";
-import { SITE } from "../../data/site";
 import { useCheminAstro } from "../../hooks/useCheminAstro";
-import { useMenuMobile } from "../../hooks/useMenuMobile";
+import {
+  SEUIL_MENU_DESKTOP,
+  useMenuMobile,
+} from "../../hooks/useMenuMobile";
 import { useAnimationMenu } from "../../hooks/useAnimationMenu";
 
 type SiteHeaderProps = {
@@ -12,20 +14,25 @@ type SiteHeaderProps = {
 export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
   const idMenu = useId();
   const refToggle = useRef<HTMLButtonElement>(null);
+  const refClose = useRef<HTMLButtonElement>(null);
   const aDejaEteOuvert = useRef(false);
   const { estCourant } = useCheminAstro(currentPath);
   const { ouvert, fermerMenu, basculerMenu } = useMenuMobile();
-  const { refOverlay, refMeta, refPied, definirRefLien } =
-    useAnimationMenu(ouvert);
+  const { refOverlay, definirRefLien } = useAnimationMenu(ouvert);
 
   useEffect(() => {
     if (ouvert) {
       aDejaEteOuvert.current = true;
-      refOverlay.current?.querySelector<HTMLElement>("a")?.focus();
+      refClose.current?.focus();
       return;
     }
-    if (aDejaEteOuvert.current) refToggle.current?.focus();
-  }, [ouvert, refOverlay]);
+    if (!aDejaEteOuvert.current) return;
+    // Ne pas focus le toggle s’il est display:none (desktop)
+    const estMobile = window.matchMedia(
+      `(max-width: ${SEUIL_MENU_DESKTOP - 1}px)`,
+    ).matches;
+    if (estMobile) refToggle.current?.focus();
+  }, [ouvert]);
 
   useEffect(() => {
     const overlay = refOverlay.current;
@@ -53,9 +60,12 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
   }, [ouvert, refOverlay]);
 
   return (
-    <>
+    <div className="site-header-root">
       <header className="nav-pill-wrap">
-        <nav className={`nav-glass${ouvert ? " is-open" : ""}`} aria-label="Principale">
+        <nav
+          className={`nav-glass${ouvert ? " is-open" : ""}`}
+          aria-label="Principale"
+        >
           <ul className="nav-desktop">
             {NAV_LINKS.map((lien) => {
               const courant = estCourant(lien.href);
@@ -102,6 +112,7 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
       >
         <div className="menu-close-bar">
           <button
+            ref={refClose}
             type="button"
             className="menu-close"
             aria-label="Fermer le menu"
@@ -132,6 +143,6 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
           </ul>
         </div>
       </div>
-    </>
+    </div>
   );
 }
