@@ -100,10 +100,17 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
         aria-label="Navigation mobile"
         aria-hidden={!ouvert}
       >
+        <div className="menu-close-bar">
+          <button
+            type="button"
+            className="menu-close"
+            aria-label="Fermer le menu"
+            onClick={fermerMenu}
+          >
+            <span className="menu-close-icon" aria-hidden="true" />
+          </button>
+        </div>
         <div className="menu-stage">
-          <p className="menu-meta" ref={refMeta}>
-            {SITE.nom}
-          </p>
           <ul className="menu-list">
             {NAV_LINKS.map((lien, i) => {
               const courant = estCourant(lien.href);
