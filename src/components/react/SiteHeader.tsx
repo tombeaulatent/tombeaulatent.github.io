@@ -23,8 +23,12 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
   useEffect(() => {
     if (ouvert) {
       aDejaEteOuvert.current = true;
-      refClose.current?.focus();
-      return;
+      // Focus le dialog (pas la croix) : sur mobile, focus() sur un bouton
+      // peut rejouer un "click" et refermer le menu aussitôt
+      const t = window.setTimeout(() => {
+        refOverlay.current?.focus({ preventScroll: true });
+      }, 0);
+      return () => window.clearTimeout(t);
     }
     if (!aDejaEteOuvert.current) return;
     // Ne pas focus le toggle s’il est display:none (desktop)
@@ -32,7 +36,7 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
       `(max-width: ${SEUIL_MENU_DESKTOP - 1}px)`,
     ).matches;
     if (estMobile) refToggle.current?.focus();
-  }, [ouvert]);
+  }, [ouvert, refOverlay]);
 
   useEffect(() => {
     const overlay = refOverlay.current;
@@ -109,6 +113,7 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
         aria-modal="true"
         aria-label="Navigation mobile"
         aria-hidden={!ouvert}
+        tabIndex={-1}
       >
         <div className="menu-close-bar">
           <button

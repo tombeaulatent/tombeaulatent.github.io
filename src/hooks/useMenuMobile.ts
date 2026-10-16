@@ -24,11 +24,11 @@ export function useMenuMobile() {
     return () => media.removeEventListener("change", surChangement);
   }, []);
 
-  // View transitions : fermer le menu persisté entre les pages
+  // View transitions : fermer après un vrai swap (pas le page-load initial)
   useEffect(() => {
-    const surPageLoad = () => setOuvert(false);
-    document.addEventListener("astro:page-load", surPageLoad);
-    return () => document.removeEventListener("astro:page-load", surPageLoad);
+    const surSwap = () => setOuvert(false);
+    document.addEventListener("astro:after-swap", surSwap);
+    return () => document.removeEventListener("astro:after-swap", surSwap);
   }, []);
 
   useEffect(() => {
