@@ -4,10 +4,10 @@ export const SITE = {
     instagram: "https://www.instagram.com/",
     soundcloud: "https://soundcloud.com/",
   },
-  /** Fichier à placer dans public/audio/ */
+  /** fichier à placer dans public/audio/ */
   audio: {
-    source: "/audio/track.mp3",
+    source: "",
     titre: "jsp frère",
-    artiste: "TombeauLatent",
+    artiste: "Bismillah c'est les ténèbres",
   },
 };

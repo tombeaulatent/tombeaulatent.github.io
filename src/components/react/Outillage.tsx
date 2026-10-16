@@ -26,6 +26,7 @@ export default function Outillage() {
     progression,
     duree,
     tempsActuel,
+    erreurChargement,
     demarrer,
     basculerLecture,
     allerA,
@@ -65,6 +66,11 @@ export default function Outillage() {
         <div className="outillage-player-meta">
           <span className="outillage-player-title">{SITE.audio.titre}</span>
           <span className="outillage-player-artist">{SITE.audio.artiste}</span>
+          {erreurChargement && (
+            <span className="outillage-player-error" role="alert">
+              Impossible de charger l’audio
+            </span>
+          )}
         </div>
 
         <div className="outillage-player-controls">
@@ -73,29 +79,24 @@ export default function Outillage() {
             className="outillage-btn outillage-btn-play"
             onClick={basculerLecture}
             aria-label={enLecture ? "Pause" : "Lecture"}
+            disabled={erreurChargement}
           >
             <IconeOutillage nom={enLecture ? "pause" : "play"} />
           </button>
 
           <div className="outillage-progress">
-            <button
-              type="button"
+            <input
+              type="range"
               className="outillage-progress-track"
+              min={0}
+              max={1}
+              step={0.001}
+              value={progression}
               aria-label="Position dans la piste"
-              onClick={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const ratio = Math.min(
-                  1,
-                  Math.max(0, (e.clientX - rect.left) / rect.width),
-                );
-                allerA(ratio);
-              }}
-            >
-              <span
-                className="outillage-progress-fill"
-                style={{ transform: `scaleX(${progression})` }}
-              />
-            </button>
+              aria-valuetext={formaterTemps(tempsActuel)}
+              disabled={erreurChargement || duree === 0}
+              onChange={(e) => allerA(Number(e.target.value))}
+            />
             <div className="outillage-progress-times">
               <span>{formaterTemps(tempsActuel)}</span>
               <span>{formaterTemps(duree)}</span>

@@ -25,7 +25,7 @@ function lireMesuresLoupe(): MesuresLoupe {
     hauteurBarre: lireVariableCss("--outillage-hauteur-barre", 56),
     hauteurCoquilleSurvol: lireVariableCss(
       "--outillage-hauteur-coquille-survol",
-      140,
+      30,
     ),
   };
 }
