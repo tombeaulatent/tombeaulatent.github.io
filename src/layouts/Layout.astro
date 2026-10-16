@@ -12,11 +12,11 @@ type Props = {
 
 const {
   title = SITE.nom,
-  description = "Portfolio sombre   gothique, technologie, mémoire latente.",
+  description = "Bismillah c'est les ténèbres",
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const pageTitle = title === SITE.nom ? title : `${title} · ${SITE.nom}`;
+const pageTitle = SITE.nom;
 ---
 
 <!doctype html>
@@ -51,7 +51,7 @@ const pageTitle = title === SITE.nom ? title : `${title} · ${SITE.nom}`;
         <slot />
       </main>
       <footer class="site-footer page-pad" transition:persist="footer">
-        <span>{SITE.nom}</span>
+        <span>2026</span>
         <span>...</span>
       </footer>
       <Outillage client:load />

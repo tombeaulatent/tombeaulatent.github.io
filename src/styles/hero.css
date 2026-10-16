@@ -72,16 +72,85 @@
   z-index: 2;
   width: min(100%, 72rem);
   max-width: 100%;
-  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
 }
 
 .hero-brand {
   margin: 0;
   font-family: var(--font-brand);
-  font-size: clamp(8rem, 12vw, 9.5rem); /* permet de donner une taille minimale, une taille maximale et une taille par défaut */
+  font-size: clamp(6rem, 12vw, 9.5rem); /* permet de donner une taille minimale, une taille maximale et une taille par défaut */
   /* vw permet de donner une taille en fonction de la largeur de la fenêtre */
   font-weight: normal;
   line-height: 0.9;
   letter-spacing: 0.02em;
   color: var(--color-ink);
+}
+
+.hero-subtitle {
+  margin: 0;
+  max-width: 28rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--color-ink-muted);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: var(--space-xs);
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.4rem;
+  padding: 0.45rem 1.1rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.hero-btn-primary {
+  color: var(--color-bg);
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-accent-soft);
+}
+
+.hero-btn-primary:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+}
+
+.hero-btn-ghost {
+  color: var(--color-ink);
+  background: transparent;
+  border: 1px solid var(--glass-border);
+}
+
+.hero-btn-ghost:hover {
+  border-color: var(--color-ink-muted);
+}
+
+/* Téléphone : bloc collé en bas à gauche (style antharaw) */
+@media (max-width: 900px) {
+  .hero {
+    align-items: end;
+    padding-bottom: calc(var(--outillage-hauteur-barre) + 4.5rem);
+  }
+
+  .hero-brand {
+    font-size: clamp(3.2rem, 14vw, 5.5rem);
+  }
 }

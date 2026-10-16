@@ -123,9 +123,6 @@ export default function SiteHeader({ currentPath = "/" }: SiteHeaderProps) {
               );
             })}
           </ul>
-          <p className="menu-footer" ref={refPied}>
-            github.com/tombeaulatent
-          </p>
         </div>
       </div>
     </>
