@@ -27,6 +27,13 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Blackletter";
+  src: url("/fonts/F25_BlackletterTypewriter.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 *,
 *::before,
 *::after {
@@ -173,7 +180,7 @@ button {
 
 .page-screen h1 {
   margin: 0;
-  font-family: var(--font-bloody);
+  font-family: var(--font-title);
   font-size: clamp(2.5rem, 8vw, 5rem);
   line-height: 1;
   text-align: center;
@@ -182,13 +189,12 @@ button {
 
 .site-footer {
   padding: var(--space-md) clamp(1rem, 4vw, 3rem);
-  padding-bottom: calc(var(--space-md) + 4rem);
   border-top: 1px solid var(--color-bg);
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--space-md);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;

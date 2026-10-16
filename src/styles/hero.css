@@ -78,7 +78,7 @@
   gap: var(--space-sm);
 }
 
-.hero-brand {
+.hero-title {
   margin: 0;
   font-family: var(--font-brand);
   font-size: clamp(6rem, 12vw, 9.5rem); /* permet de donner une taille minimale, une taille maximale et une taille par défaut */
@@ -92,7 +92,7 @@
 .hero-subtitle {
   margin: 0;
   max-width: 28rem;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 1rem;
   letter-spacing: 0.1em;
   color: var(--color-ink-muted);
@@ -106,15 +106,14 @@
 }
 
 .hero-btn {
+  font-family: var(--font-title);
   display: inline-flex;
   align-items: center;
   justify-content: center;
   min-height: 2.4rem;
   padding: 0.45rem 1.1rem;
-  font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   border-radius: var(--radius-pill);
   transition:
     color var(--duration-fast) var(--ease-out),
@@ -150,7 +149,7 @@
     padding-bottom: calc(var(--outillage-hauteur-barre) + 4.5rem);
   }
 
-  .hero-brand {
-    font-size: clamp(3.2rem, 14vw, 5.5rem);
+  .hero-title {
+    font-size: clamp(5rem, 14vw, 7rem);
   }
 }

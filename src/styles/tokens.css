@@ -3,7 +3,7 @@
    ============================================================ */
 
 :root {
-  /* Surfaces */
+  /* Fond */
   --color-bg: #070707;
 
   /* Texte */
@@ -11,11 +11,11 @@
   --color-ink-muted: #b8b4ba;
   --color-ink-faint: #949198;
 
-  /* Accents */
+  /* Couleurs */
   --color-accent: #685692; 
   --color-accent-soft: #957fbf;
 
-  /* Glass / blur menu */
+  /* Effet glass */
   --glass-bg: color-mix(in srgb, var(--color-bg) 42%, transparent);
   --glass-bg-strong: color-mix(in srgb, var(--color-bg) 88%, transparent);
   --glass-border: color-mix(in srgb, var(--color-ink) 18%, transparent);
@@ -23,9 +23,8 @@
 
   /* Typo */
   --font-brand: "Kingjola";
-  --font-bloody: "Bloody";
-  --font-body: "Cormorant Garamond";
-  --font-mono: "Subway Haze";
+  --font-title: "Blackletter";
+  --font-body: "Subway Haze";
 
   /* Espacements */
   --space-xs: 0.35rem;

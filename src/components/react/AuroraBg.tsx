@@ -10,12 +10,12 @@ const auroraMono = new AuroraPattern({
 
 const engineOptions = {
   fps: 30,
-  font: "",
+  font: "var(--font-body)",
   fontSize: 14,
 };
 
 /**
- * Fond ASCII aurora (mono). Désactivé si prefers-reduced-motion.
+ * Fond ASCII aurora. Désactivé si prefers-reduced-motion.
  * @see https://flawnn.github.io/asciitopia/#/pattern/aurora
  */
 export default function AuroraBg() {
