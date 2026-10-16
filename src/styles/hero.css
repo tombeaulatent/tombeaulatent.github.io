@@ -36,7 +36,7 @@
   background-image: url("/images/bg.jpg");
   background-size: cover;
   background-position: center;
-  filter: blur(px) brightness(1.15);
+  filter: brightness(1.15);
   transform: scale(1.05);
 }
 
@@ -78,7 +78,8 @@
 .hero-brand {
   margin: 0;
   font-family: var(--font-brand);
-  font-size: clamp(3rem, 12vw, 9.5rem);
+  font-size: clamp(8rem, 12vw, 9.5rem); /* permet de donner une taille minimale, une taille maximale et une taille par défaut */
+  /* vw permet de donner une taille en fonction de la largeur de la fenêtre */
   font-weight: normal;
   line-height: 0.9;
   letter-spacing: 0.02em;
