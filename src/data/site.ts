@@ -5,6 +5,7 @@ export const SITE = {
     instagram: "https://www.instagram.com/tombeaulatent",
     soundcloud: "https://soundcloud.com/tombeaulatent",
   },
+  footer: "© 2026 tombeauLatent. Tous droits réservés.",
   /** fichier à placer dans public/audio/ */
   audio: {
     source: "",
