@@ -93,7 +93,7 @@
   margin: 0;
   max-width: 28rem;
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 1rem;
   letter-spacing: 0.1em;
   color: var(--color-ink-muted);
 }
@@ -112,7 +112,7 @@
   min-height: 2.4rem;
   padding: 0.45rem 1.1rem;
   font-family: var(--font-mono);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   border-radius: var(--radius-pill);

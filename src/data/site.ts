@@ -1,5 +1,5 @@
 export const SITE = {
-  nom: "TombeauLatent",
+  nom: "tombeauLatent",
   accroche: "Belle bite",
   reseaux: {
     instagram: "https://www.instagram.com/",

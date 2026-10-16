@@ -10,7 +10,7 @@ const auroraMono = new AuroraPattern({
 
 const engineOptions = {
   fps: 30,
-  font: "Bloody",
+  font: "",
   fontSize: 14,
 };
 

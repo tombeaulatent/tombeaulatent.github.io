@@ -12,8 +12,8 @@
   --color-ink-faint: #949198;
 
   /* Accents */
-  --color-accent: #563d8f; 
-  --color-accent-soft: #7c5cb8;
+  --color-accent: #685692; 
+  --color-accent-soft: #957fbf;
 
   /* Glass / blur menu */
   --glass-bg: color-mix(in srgb, var(--color-bg) 42%, transparent);
@@ -22,10 +22,10 @@
   --glass-blur: 18px;
 
   /* Typo */
-  --font-brand: "Kingjola", "Cinzel", serif;
-  --font-bloody: "Bloody", "Kingjola", serif;
-  --font-body: "Cormorant Garamond", Georgia, serif;
-  --font-mono: "F25 Blackletter Typewriter", "IBM Plex Mono", monospace;
+  --font-brand: "Kingjola";
+  --font-bloody: "Bloody";
+  --font-body: "Cormorant Garamond";
+  --font-mono: "Subway Haze";
 
   /* Espacements */
   --space-xs: 0.35rem;
