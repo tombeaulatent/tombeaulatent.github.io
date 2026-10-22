@@ -166,6 +166,7 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   -webkit-overflow-scrolling: touch;
+  visibility: hidden;
   color: var(--color-ink);
   background: var(--glass-bg-strong);
   backdrop-filter: blur(28px) saturate(1.2) brightness(0.78);
