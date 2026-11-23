@@ -26,7 +26,7 @@
   align-items: center;
   justify-content: right;
   gap: clamp(0.75rem, 2vw, 1.5rem);
-  min-height: 3.5rem;
+  height: 3rem;
   padding: 0.45rem 0.55rem 0.45rem 1.15rem;
   border: 4px outset var(--glass-border);
   background: var(--glass-bg);
