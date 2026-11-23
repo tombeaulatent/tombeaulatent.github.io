@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Howl } from "howler";
-import { SITE } from "../data/site";
+import { MUSIQUE } from "../data/musique";
 
 export function formaterTemps(secondes: number) {
   let minutes = 0;
@@ -58,7 +58,7 @@ export function useLecteurAudio() {
 
   useEffect(() => {
     const son = new Howl({
-      src: [SITE.audio.source],
+      src: [MUSIQUE.source],
       html5: true,
       loop: true,
       volume: 0.55,

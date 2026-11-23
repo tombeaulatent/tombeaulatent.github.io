@@ -1,17 +1,13 @@
 import { useEffect, useId, useState, type CSSProperties } from "react";
-import { SITE } from "../../data/site";
-import { ICONES, OUTILS, type NomIcone } from "../../data/outillage";
-import {
-  formaterTemps,
-  useLecteurAudio,
-} from "../../hooks/useLecteurAudio";
+import { MUSIQUE } from "../../data/musique";
+import {formaterTemps,useLecteurAudio} from "../../hooks/useLecteurAudio";
 import { useBarreLoupe } from "../../hooks/useBarreLoupe";
 
-function IconeOutillage({ nom }: { nom: NomIcone }) {
+function IconeOutillage({ src }: { src: string }) {
   return (
     <span
       className="outillage-icon"
-      style={{ "--outillage-icon": `url(${ICONES[nom]})` } as CSSProperties}
+      style={{ "--outillage-icon": `url(${src})` } as CSSProperties}
       aria-hidden="true"
     />
   );
@@ -64,8 +60,8 @@ export default function Outillage() {
         aria-hidden={!lecteurOuvert}
       >
         <div className="outillage-player-meta">
-          <span className="outillage-player-title">{SITE.audio.titre}</span>
-          <span className="outillage-player-artist">{SITE.audio.artiste}</span>
+          <span className="outillage-player-title">{MUSIQUE.titre}</span>
+          <span className="outillage-player-artist">{MUSIQUE.artiste}</span>
           {erreurChargement && (
             <span className="outillage-player-error" role="alert">
               Impossible de charger l’audio
@@ -81,7 +77,9 @@ export default function Outillage() {
             aria-label={enLecture ? "Pause" : "Lecture"}
             disabled={erreurChargement}
           >
-            <IconeOutillage nom={enLecture ? "pause" : "play"} />
+            <IconeOutillage
+              src={enLecture ? "/icons/pause.svg" : "/icons/play.svg"}
+            />
           </button>
 
           <div className="outillage-progress">
@@ -109,7 +107,7 @@ export default function Outillage() {
             onClick={() => setLecteurOuvert(false)}
             aria-label="Fermer le lecteur"
           >
-            <IconeOutillage nom="close" />
+            <IconeOutillage src="/icons/close.svg" />
           </button>
         </div>
       </div>
@@ -121,47 +119,52 @@ export default function Outillage() {
           onMouseMove={auMouvementSouris}
           onMouseLeave={reinitialiserLoupe}
         >
-          {OUTILS.map((outil, index) => {
-            if (outil.kind === "lien") {
-              return (
-                <a
-                  key={outil.id}
-                  ref={definirRefElement(index)}
-                  className="outillage-item"
-                  href={outil.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={outil.libelle}
-                >
-                  <IconeOutillage nom={outil.icone} />
-                </a>
-              );
-            }
+          <a
+            ref={definirRefElement(0)}
+            className="outillage-item"
+            href="https://www.instagram.com/tombeaulatent"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <IconeOutillage src="/icons/instagram.svg" />
+          </a>
 
-            return (
-              <button
-                key={outil.id}
-                ref={definirRefElement(index)}
-                type="button"
-                className={`outillage-item outillage-item-trigger${
-                  lecteurOuvert || enLecture ? " is-active" : ""
-                }`}
-                aria-expanded={lecteurOuvert}
-                aria-controls={idLecteur}
-                aria-label={
-                  lecteurOuvert ? "Masquer le lecteur" : "Ouvrir le lecteur"
-                }
-                onClick={() => {
-                  if (lecteurOuvert) setLecteurOuvert(false);
-                  else ouvrirLecteur();
-                }}
-              >
-                <IconeOutillage
-                  nom={enLecture && !lecteurOuvert ? "pause" : "play"}
-                />
-              </button>
-            );
-          })}
+          <a
+            ref={definirRefElement(1)}
+            className="outillage-item"
+            href="https://soundcloud.com/tombeaulatent"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="SoundCloud"
+          >
+            <IconeOutillage src="/icons/soundcloud.svg" />
+          </a>
+
+          <button
+            ref={definirRefElement(2)}
+            type="button"
+            className={`outillage-item outillage-item-trigger${
+              lecteurOuvert || enLecture ? " is-active" : ""
+            }`}
+            aria-expanded={lecteurOuvert}
+            aria-controls={idLecteur}
+            aria-label={
+              lecteurOuvert ? "Masquer le lecteur" : "Ouvrir le lecteur"
+            }
+            onClick={() => {
+              if (lecteurOuvert) setLecteurOuvert(false);
+              else ouvrirLecteur();
+            }}
+          >
+            <IconeOutillage
+              src={
+                enLecture && !lecteurOuvert
+                  ? "/icons/pause.svg"
+                  : "/icons/play.svg"
+              }
+            />
+          </button>
         </nav>
       </div>
     </div>

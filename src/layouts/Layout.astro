@@ -2,7 +2,6 @@
 import { ClientRouter, fade } from "astro:transitions";
 import SiteHeader from "../components/react/SiteHeader";
 import Outillage from "../components/react/Outillage";
-import { SITE } from "../data/site";
 import "../styles/global.css";
 
 type Props = {
@@ -11,12 +10,12 @@ type Props = {
 };
 
 const {
-  title = SITE.nom,
+  title = "tombeauLatent",
   description = "Bismillah c'est les ténèbres",
 } = Astro.props;
 
 const currentPath = Astro.url.pathname;
-const pageTitle = SITE.nom;
+const pageTitle = title;
 ---
 
 <!doctype html>
@@ -51,7 +50,7 @@ const pageTitle = SITE.nom;
         <slot />
       </main>
       <footer class="site-footer page-pad" transition:persist="footer">
-        <span>{SITE.footer}</span>
+        <span>© 2026 tombeauLatent. Tous droits réservés.</span>
         <span>...</span>
       </footer>
       <Outillage client:load />
