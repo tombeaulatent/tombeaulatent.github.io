@@ -42,7 +42,6 @@
 
 html {
   color-scheme: dark;
-  scroll-behavior: smooth;
   cursor: url("/cursor/cursor.cur"), auto;
 }
 

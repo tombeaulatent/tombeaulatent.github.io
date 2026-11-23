@@ -36,24 +36,29 @@ const pageTitle = title;
     <ClientRouter />
   </head>
   <body>
-    <div class="site-shell">
-      <SiteHeader
-        client:load
-        transition:persist="nav"
-        currentPath={currentPath}
-      />
-      <main
-        class="site-main"
-        transition:animate={fade({ duration: "600ms" })}
-        transition:name="main"
-      >
-        <slot />
-      </main>
-      <footer class="site-footer page-pad" transition:persist="footer">
-        <span>© 2026 tombeauLatent. Tous droits réservés.</span>
-        <span>...</span>
-      </footer>
-      <Outillage client:load />
+    <div id="smooth-wrapper" class="site-shell">
+      <div id="smooth-content">
+        <main
+          class="site-main"
+          transition:animate={fade({ duration: "600ms" })}
+          transition:name="main"
+        >
+          <slot />
+        </main>
+        <footer class="site-footer page-pad" transition:persist="footer">
+          <span>© 2026 tombeauLatent. Tous droits réservés.</span>
+          <span>...</span>
+        </footer>
+      </div>
     </div>
+    <!-- position: fixed → hors du content (doc GSAP) -->
+    <SiteHeader
+      client:load
+      transition:persist="nav"
+      currentPath={currentPath}
+    />
+    <Outillage client:load />
   </body>
 </html>
+
+<script src="../scripts/scrollSmoother.ts"></script>
